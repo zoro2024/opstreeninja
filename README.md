@@ -1,2 +1,2 @@
 # opstreeninja
-For asignment submition
+For assignment submission
