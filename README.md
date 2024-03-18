@@ -13,7 +13,7 @@ Supported features of the Salary API are:-
 - Swagger integration for the API documentation of endpoints and payloads.
 - Database migration using the tool called **[migrate](https://github.com/golang-migrate/migrate)**.
 
-## Pre-Requisiteslslslslsvfvfvfv
+##### Pre-Requisiteslslslslsvfvfvfv
 
 The Salary API application have some database, cache manager and package dependencies. Some of the dependencies are optional and some are mandatory. To compile the application, we only need `maven` as build tool, but for running the application following things are required:-
 
