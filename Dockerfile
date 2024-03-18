@@ -1,22 +1,12 @@
-FROM maven:3.6.3-openjdk-17 as builder
+FROM maven:3.3-jdk-8 as builder
+COPY . /usr/src/mymaven/
+WORKDIR /usr/src/mymaven/
+RUN mvn clean install
+RUN mvn package 
 
-WORKDIR /workspace
-
-COPY pom.xml .
-COPY src/ src/
-
-RUN mvn clean package -DskipTests
-
-FROM alpine:3.18.0
-
-LABEL authors="Opstree Solution" \
-      contact="opensource@opstree.com" \
-      version="v0.1.0" \
-      service="salary-api"
-
-RUN apk update && \
-    apk add openjdk17
-
-COPY --from=builder /workspace/target/salary-0.1.0-RELEASE.jar /app/salary.jar
+FROM tomcat:7-jre7-alpine
+MAINTAINER "opstree <opstree@gmail.com>"
+RUN rm -rf /usr/local/tomcat/webapps/*
+COPY --from=builder /usr/src/mymaven/target/Spring3HibernateApp.war /usr/local/tomcat/webapps/ROOT.war
+WORKDIR /usr/local/tomcat/webapps/
 EXPOSE 8080
-ENTRYPOINT ["/usr/bin/java", "-jar", "/app/salary.jar"]
